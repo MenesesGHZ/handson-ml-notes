@@ -21,10 +21,14 @@ A labeled training is a subset of the total collection of data where each instan
 ### 5.Can you name four common unsupervised tasks?
 
 - Dimensionality Reduction: It has the main purpose to reduce the amount of features merging those that are strong correlated with each other. To make a single new feature and improving the memory use, computational speed, and also may perform better predicting.
-    - ![cc6148baf4edc37a4d2c65b55f2e4e79.png](_resources/3b25e8c68db4421bba7343bcbc28fe37)
+<div align="center" width="100%">
+  <img src="https://github.com/MenesesGHZ/handson-ml-notes/blob/main/chapter_1/_resources/3b25e8c68db4421bba7343bcbc28fe37.png" width="600px" height="auto" align="center">
+</div>
 - Cluestering: This group of algorithms seeks to find patterns or similarities between observations in order to segmentize them withouth the need of a labeled dataset.
 - Association Rule Learning: The goal is to dig in a large amount of data to discover correlation between attributes.
-    - ![fc85d30a265773f46257568f034b326c.png](_resources/0a657f27b8f1499697ea1da31403ce7e)
+<div align="center" width="100%">
+  <img src="https://github.com/MenesesGHZ/handson-ml-notes/blob/main/chapter_1/_resources/0a657f27b8f1499697ea1da31403ce7e.png" width="600px" height="auto" align="center">
+</div>
 - Anomaly Detection: The goal of this task is to find instances that are out from the normal behavior of the training set.
 
 ### 6.What type of Machine Learning algorithm would you use to allow a robot to walk in various unknown terrains?
@@ -89,7 +93,9 @@ As I said in the previous question if we only setup our hyperparameters for the 
 
 In simple words, Cross-Validation is model validation technique. Where the training set is splitted into two new subsets, a new training set and a validation set. All this apart from the test set. In cross validation there is another variant that is called ***Leave-One-Out Cross-Validation*** (LOOCV), but the most popular is ***K-Fold Cross-Validation*** (k-fold CV) here at below is a representation of this variant:
 
-![26f01c431480ab1025cbee4002b65e98.png](_resources/787941b150c341c3b54273a5d97741d8)
+<div align="center" width="100%">
+  <img src="https://github.com/MenesesGHZ/handson-ml-notes/blob/main/chapter_1/_resources/787941b150c341c3b54273a5d97741d8.png" width="600px" height="auto" align="center">
+</div>
 
 It is divide the training set in K substets called folds, and one of these folds will be the validation set. Thus it can be made K combinations where it can be selected different validation sets and therefore it is prefered to train the model with these K different combinations to have a more robust measure.
 
