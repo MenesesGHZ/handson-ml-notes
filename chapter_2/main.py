@@ -1,4 +1,5 @@
-import argparse 
+import argparse
+from plotter import plot_housing_data
 from sklearn.svm import SVR
 from sklearn.model_selection import RandomizedSearchCV
 from data_loader import fetch_housing_data, load_housing_data 
@@ -13,9 +14,9 @@ def main(download_data):
     dataset = load_housing_data()
     
     # Plotting data for visualization
-    print(dataset.columns)
-    print(dataset.corr())
-
+    pairplot_attributes = ["median_house_value", "median_income", "total_rooms","housing_median_age"]
+    plot_housing_data(dataset,pairplot_attributes) 
+        
     # Preprocessing data
     #pipeline = load_pipeline()
 
