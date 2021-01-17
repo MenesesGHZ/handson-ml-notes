@@ -1,7 +1,7 @@
 from scipy import stats
 from sklearn.pipeline import Pipeline, FeatureUnion
 from sklearn.impute import SimpleImputer
-from sklearn.preprocessing import MinMaxScaler, LabelBinarizer
+from sklearn.preprocessing import MinMaxScaler, OneHotEncoder
 from sklearn.base import BaseEstimator, TransformerMixin
 
 # Select specific attributes among data to apply to them the next transformations in the pipeline 
@@ -15,8 +15,7 @@ class DataFrameSelector(BaseEstimator, TransformerMixin):
     def transform(self, X):
         return X[self.attribute_names].values
 
-
-# Select the variables that has the strongest correlation with the response.
+# Select the variables that has a strong correlation with the response, and turned into a numpy matrix. 
 class CorrelationFilter(BaseEstimator, TransformerMixin):
     def __init__(self,numerical_attr,response_attr,coef_criterium): # no *args or **kargs
         if response_attr in numerical_attr:
@@ -35,21 +34,20 @@ class CorrelationFilter(BaseEstimator, TransformerMixin):
             coef = stats.spearmanr(X[attr],X[self.response_attr])[0]
             if coef > abs(self.coef_criterium):
                 selected_attr.append(attr)
-        return X[selected_attr]
+        return X[selected_attr].values
 
 def load_pipeline(numerical_attributes,categorical_attributes,response_attribute,imputer_strategy="median",scaler_range=(0,1),coef_criterium=0.2):
     # Pipeline for numerical attributes
     numerical_pipeline = Pipeline([
-            ("selector", DataFrameSelector(numerical_attributes)),
+            ("corr_filter",CorrelationFilter(numerical_attributes,response_attribute,coef_criterium)),
             ("imputer",SimpleImputer(strategy=imputer_strategy)),
-            ("scaler",MinMaxScaler(feature_range=scaler_range)),
-            ("corr_filter",CorrelationFilter(numerical_attributes,response_attribute,coef_criterium))
+            ("scaler",MinMaxScaler(feature_range=scaler_range))
             ])
 
     # Pipeline for categorical attributes
     categorical_pipeline = Pipeline([
-            ("selector", DataFrameSelector(categorical_attributes)),
-            ("binarizer",LabelBinarizer())
+            ("selector", DataFrameSelector(attribute_names=categorical_attributes)),
+            ("binarizer",OneHotEncoder())
             ])
 
     # Concatenating numerical and categorical pipelines
